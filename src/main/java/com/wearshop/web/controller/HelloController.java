@@ -8,7 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @author roman
+ * @author rvo
  *
  */
 @Controller
@@ -16,7 +16,7 @@ public class HelloController {
 	
 	@RequestMapping("/hello.html")
 	public String handleRequest(ModelMap model) {
-        model.addAttribute("message", "HELLO my friend!!!");
+        model.addAttribute("message", "HELLO my friend!!!***");
         return "hello";
     }
 
