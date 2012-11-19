@@ -7,7 +7,10 @@
 	<version>2.0</version>
 	<packaging>war</packaging>
 	<name>WearShop Web Project</name>
+	<description>Application desctription...</description>
 	<url>http://www.ladychic.com.ua</url>
+
+	<!-- Project properties -->
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,9 +19,14 @@
 		<javax.servlet.jstl.version>1.2</javax.servlet.jstl.version>
 	</properties>
 	
-	<!-- Repositories -->
+	<!-- JAR Repositories -->
 	
 	<repositories>
+		<repository>
+			<id>springsource-repo</id>
+			<name>SpringSource Repository</name>
+			<url>http://repo.springsource.org/release</url>
+		</repository>
 		<repository>
 			<id>repo1</id>
 			<name>maven repo1</name>
@@ -34,6 +42,22 @@
 			<url> http://repository.jboss.org/nexus/content/groups/public-jboss</url>
 		</repository>
     </repositories>
+		
+	<!-- Plugin Repositories -->
+		
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>	
 		
 	<!-- Dependencies -->
 	
@@ -51,9 +75,18 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${javax.servlet.jstl.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		
-		<!-- Spring 3 dependencies -->
+		<dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+		
+		<!-- Spring framework -->
+ 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -91,18 +124,72 @@
 
 	</dependencies>
 	
+	<!-- Build Configuration -->
+	
 	<build>
-        <finalName>igallery</finalName>
+		<!-- Specify a final name of WAR file -->
+        <finalName>wearshop</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
 					<source>1.7</source>
 					<target>1.7</target>
                 </configuration>
             </plugin>
+            
+            <plugin>
+		    	<groupId>org.apache.maven.plugins</groupId>
+		    	<artifactId>maven-war-plugin</artifactId>
+		    	<version>2.2</version>
+		    	<configuration>
+		     		<!-- specifiy which directory within the project hierarchy will be considered 
+		      		as the root directory from the generated war file -->
+		     		<warSourceDirectory>src/main/webapp</warSourceDirectory>
+		     		<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+		    	</configuration>
+		    </plugin>
+            <!--
+            <plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.10</version>
+				<configuration>
+					<scanIntervalSeconds>5</scanIntervalSeconds>
+					<stopKey>stop</stopKey>
+					<stopPort>9999</stopPort>
+					<scanTargets>
+						<scanTarget>src/</scanTarget>
+					</scanTargets>
+				</configuration>
+			</plugin>
+            -->
+			
+			<plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.16</version>
+                <configuration>
+                	<scanIntervalSeconds>10</scanIntervalSeconds>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <port>9090</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                    <requestLog implementation="org.mortbay.jetty.NCSARequestLog">
+                        <filename>target/yyyy_mm_dd.request.log</filename>
+                        <retainDays>90</retainDays>
+                        <append>true</append>
+                        <extended>false</extended>
+                        <logTimeZone>GMT</logTimeZone>
+                    </requestLog>
+                </configuration>
+            </plugin>
+			
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.7</version>
