@@ -12,6 +12,7 @@ Initialize the project
 4. mvn jetty:run
 5. Jetty hot deploy
 6. Debug application deployed in Jetty
+7. Use the following URL to run the application: http://localhost:9090/wearshop/hello.html
 
 
 TODO
