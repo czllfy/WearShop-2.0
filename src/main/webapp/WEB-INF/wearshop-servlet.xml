@@ -14,10 +14,7 @@
 	
   	<!-- Enabling Spring MVC configuration through annotations -->
 	<mvc:annotation-driven />
-		
-	<!-- Activates various annotations to be detected in bean classes. -->
-    <context:annotation-config />
- 	
+	
 	<!-- View resolver definition -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
