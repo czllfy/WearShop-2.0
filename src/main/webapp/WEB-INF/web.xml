@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_ID" version="2.4"
+<web-app id="wearshop_id" version="3.0"
 	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_3_0.xsd">
 
 	<display-name>WearShop</display-name>
 
 	<context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>WEB-INF/business-context.xml</param-value>
+        <param-value>
+        	WEB-INF/applicationContext.xml
+        	WEB-INF/business-context.xml
+        </param-value>
     </context-param>
 	
+	<!-- Listeners declaration -->
+	
+	<listener>
+    	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  	</listener>
+  	
 	<listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 	
-	
 	<!-- Spring application Servlet -->
-    <servlet>
-        <servlet-name>wearshop</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
+	<servlet>
+	    <servlet-name>wearshop</servlet-name>
+	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	    <init-param>
+	        <param-name>contextConfigLocation</param-name>
+	        <param-value>/WEB-INF/wearshop-servlet.xml</param-value>
+	    </init-param>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
         <servlet-name>wearshop</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>

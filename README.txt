@@ -19,6 +19,12 @@ TODO
 ====
 1. private static PasswordEncryptor encryptor = new StrongPasswordEncryptor();
 2. Cache [net.sf.ehcache.*, Cache, CacheManager, Element]
+3. Run Spring MVC application in Tomcat/Jetty from maven (deploy/redeploy)
+4. Debug application in Maven
+5. Use the following in 'index.html':
+	<%@ page contentType="text/html;charset=UTF-8" language="java" %>	
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<c:redirect url="/example.htm"/>
 
 Resources
 ==========
